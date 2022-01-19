@@ -1,22 +1,31 @@
-# # -*- coding: utf-8 -*-
-# """
-# Created on Wed Jan 12 18:31:38 2022
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jan 12 18:31:38 2022
 
-# @author: HP
+@author: HP """
+
 
 """
 IN THIS FILE, I AM GOING TO BE HANDY WHILE LEARNING DIFFERENT DATA 
 STRUCTURES AND SOME ALOGARITHMS.
 
-"""
-# ALL ABOUT COMPUTATIONAL ANALYSIS
+ THEY ARE SOME DATA STRUCTURES CONTAINED IN COLLECTIONS MODULE
+- daque: is in form of a list that could be more faster than a list
+- counter: counts element in another data structure and outputs dictionary like strure
+It has helper methods, counter.common(n), where n: 2, 3, 4 common elements
+- default dict: to count elts in the dict. """
+
+# ~ ALL ABOUT COMPUTATIONAL ANALYSIS ~
 
 import matplotlib.pyplot as plt
 import time
 import random
 import numpy as np
+from collections import defaultdict
+from functools import lru_cache
 
 
+# # TIME COMPLEXITIES 
 
 # Defining usual sum, it will have order N $$ O(N) $$
 
@@ -58,10 +67,10 @@ plt.xlabel('N')
 plt.ylabel( 'Average time (ms)')
 plt.legend()
 
-# lis = ['a', 'b', 'c']
-# ped = [1, 3, 5]
+lis = ['a', 'b', 'c']
+ped = [1, 3, 5]
 
-# print([ped.append(i) for i in lis])
+print([ped.append(i) for i in lis])
 
 
 """Another Example using lists to search for an element"""
@@ -130,6 +139,8 @@ plt.legend()
 """ Using binary serching alogarithm"""
 
 # defining a function that will search and divides the lists each time we loop through to find the element
+"""This function has $$ O(log(n)) because if I want to take another step (maybe having a for loop), the left of the list has to double
+Having the double the input mean that I have an exponential growth (2**n), analysing it the opposite means that log2 (n), the nbr of steps that we are doing grows logarithmically"""
 
 def find_element_binary(list_, ele):
     if len(list_) < 1:
@@ -142,11 +153,105 @@ def find_element_binary(list_, ele):
     else:
         return find_element_binary(list_[mid_point+1:], ele)
     
-# Checking the codes
+# MEMOIZATION
 
+# Defining a recussive function, a fibonacci_numbers
+
+def fibonacci_recussive(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci_recussive(n-1) + fibonacci_recussive(n-2)
+   
+# print(fibonacci_recussive(6)) # why can't we call the function insttead of the print function???
+
+# Let's see how many recussive calls we do as we call the function
+""" I DON'T GET HOW WE CALCULATE 
+def fibonacci_count(n, d):
+    d[n] += 1
+    if n == 0:
+        return n, d
+    elif n == 1:
+        return 1
+    else:
+        n1, _ = fibonacci_count(n-1, d)
+        n2, _ = fibonacci_count(n-2, d)
+        return n1 + n2, d
+        
+N = 5
+d = fibonacci_count(N, defaultdict(int))
+                         
+for i in range(N):
+    print(i, d[i])  """
+    
+# Initialising the idea of storing the values in a dict rather calling several same numbers which farster if you test it with time library
+
+def fibonacci_mem(n, d):
+    if n in d:
+        return d[n]
+    elif n == 0:
+        ans = 0
+    elif n == 1:
+        ans = 1
+    else:
+        ans = fibonacci_mem(n-1, d) + fibonacci_mem(n-2, d)
+    d[n] = ans
+    return ans()
+
+# EXERCISE
+## Write the recussive calls, determnine if memoization could work on it and implement it
+# 1) 
+def factorial(n):
+    if n == 1 or n == 0:
+        return 1
+    return n * factorial(n-1)
+factorial(5)
+# 2) Memeoization can't be used bcz no repetition
+# 3) Memeization can be used if we will be using that same factorial many times. We may need to store the value so that each time we use it we don't repeat ourselves.
+# Generally, memoization is used in programs where we expect to use a lot of he same results over and over again. We can store them and "loopup" in the future.
+
+## ALTENATIVELY ##
+# explicit implementation of memoization
+fibonacci_cache = {}
+def fibonacci_dict(n):
+    # return the value if it already exist
+    if n in fibonacci_cache:
+        return fibonacci_cache[n]
+    # do the nth value
+    if n == 1:
+        value = 1
+    elif n == 2:
+        value = 1
+    elif n > 2:
+        value = fibonacci_dict(n-1) + fibonacci_dict(n-2)
+    # cashing the value
+    fibonacci_cache[n] = value
+    return value
+for n in range(1, 11):
+    print(fibonacci_dict(n))
+    
+# Use of a module lru_cache which means least recently used cache
+
+@lru_cache(maxsize=1000)   
+def fibonacci(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci_recussive(n-1) + fibonacci_recussive(n-2)
+
+for n in range(1, 101):
+    print(fibonacci(n))   
+
+## ~ MEMORY COMPLEXITIES ~ ##
+# In the book 
 
 
     
+
 
 
 
