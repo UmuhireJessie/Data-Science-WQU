@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jan 19 10:49:14 2022
-
-@author: HP
-"""
-
 import time
 
 # Checking the codes  with list comprehension 

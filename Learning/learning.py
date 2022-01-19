@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jan 12 18:31:38 2022
-
-@author: HP """
-
-
 """
 IN THIS FILE, I AM GOING TO BE HANDY WHILE LEARNING DIFFERENT DATA 
 STRUCTURES AND SOME ALOGARITHMS.
@@ -248,17 +241,3 @@ for n in range(1, 101):
 
 ## ~ MEMORY COMPLEXITIES ~ ##
 # In the book 
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
